@@ -509,10 +509,15 @@ bool EthernetClass::socketStartUDP(uint8_t s, uint8_t* addr, uint16_t port)
 	return true;
 }
 
-bool EthernetClass::socketSendUDP(uint8_t s)
+bool EthernetClass::socketSendUDP(uint8_t s, bool async)
 {
 	SPI.beginTransaction(SPI_ETHERNET_SETTINGS);
 	W5100.execCmdSn(s, Sock_SEND);
+
+    if (async) {
+        SPI.endTransaction();
+        return true;
+    }
 
 	/* +2008.01 bj */
 	while ( (W5100.readSnIR(s) & SnIR::SEND_OK) != SnIR::SEND_OK ) {

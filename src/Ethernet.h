@@ -139,7 +139,7 @@ private:
 	// Send a UDP datagram built up from a sequence of startUDP followed by one or more
 	// calls to bufferData.
 	// return true if the datagram was successfully sent, or false if there was an error
-	static bool socketSendUDP(uint8_t s);
+	static bool socketSendUDP(uint8_t s, bool async=false);
 	// Initialize the "random" source port number
 	static void socketPortRand(uint16_t n);
 };
@@ -177,6 +177,7 @@ public:
 	// Finish off this packet and send it
 	// Returns 1 if the packet was sent successfully, 0 if there was an error
 	virtual int endPacket();
+    virtual int endPacketAsync();
 	// Write a single byte into the packet
 	virtual size_t write(uint8_t);
 	// Write size bytes from buffer into the packet

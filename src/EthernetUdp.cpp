@@ -80,7 +80,12 @@ int EthernetUDP::beginPacket(IPAddress ip, uint16_t port)
 
 int EthernetUDP::endPacket()
 {
-	return Ethernet.socketSendUDP(sockindex);
+    return Ethernet.socketSendUDP(sockindex);
+}
+
+int EthernetUDP::endPacketAsync()
+{
+    return Ethernet.socketSendUDP(sockindex, true);
 }
 
 size_t EthernetUDP::write(uint8_t byte)
